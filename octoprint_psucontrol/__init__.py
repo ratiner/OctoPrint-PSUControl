@@ -113,8 +113,8 @@ class PSUControl(octoprint.plugin.StartupPlugin,
         self.invertsenseGPIOPin = False
         self.senseGPIOPinPUD = ''
         self.senseSystemCommand = ''
-        self.isPSUOn = False
-        self._noSensing_isPSUOn = False
+        self.isPSUOn = True
+        self._noSensing_isPSUOn = True
         self._check_psu_state_thread = None
         self._check_psu_state_event= threading.Event()
         self._idleTimer = None
@@ -312,7 +312,7 @@ class PSUControl(octoprint.plugin.StartupPlugin,
                 if not self.invertonoffGPIOPin:
                     initial_pin_output=GPIO.LOW
                 else:
-                    initial_pin_output=GPIO.HIGH
+                    initial_pin_output=GPIO.LOW
                 GPIO.setup(self._gpio_get_pin(self.onoffGPIOPin), GPIO.OUT, initial=initial_pin_output)
                 self._configuredGPIOPins.append(self.onoffGPIOPin)
             except (RuntimeError, ValueError) as e:
